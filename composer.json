@@ -1,0 +1,25 @@
+{
+    "name": "ambroseo/customer-dashboard",
+    "description": "Standard-Kundendashboard für AMBROSEO-Filament-Panels mit Welcome, Server-Status, Activity und Service-Karte",
+    "type": "library",
+    "license": "proprietary",
+    "require": {
+        "php": "^8.2",
+        "filament/filament": "^4.0",
+        "filament/widgets": "^4.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Ambroseo\\CustomerDashboard\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Ambroseo\\CustomerDashboard\\CustomerDashboardServiceProvider"
+            ]
+        }
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
+}
