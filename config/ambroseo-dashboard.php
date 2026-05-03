@@ -31,4 +31,12 @@ return [
         'cache_ttl'  => 600,
         'timeout'    => 5,
     ],
+
+    // AMBROSEO-API fuer den Kunden-Container | wird beim Onboarding gesetzt
+    'api' => [
+        'base_url'  => env('AMBROSEO_API_URL', 'https://ambroseo.de'),
+        'token'     => env('AMBROSEO_API_TOKEN', ''),
+        'cache_ttl' => 600,
+        'timeout'   => 5,
+    ],
 ];

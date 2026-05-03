@@ -2,12 +2,10 @@
 
 namespace Ambroseo\CustomerDashboard\Widgets;
 
-use App\Models\User;
-use App\Services\Hosting\HostingDashboardService;
+use Ambroseo\CustomerDashboard\Services\CustomerDataService;
 use Carbon\Carbon;
 use Filament\Widgets\StatsOverviewWidget as BaseWidget;
 use Filament\Widgets\StatsOverviewWidget\Stat;
-use Illuminate\Support\Facades\Auth;
 
 class ServerStatusWidget extends BaseWidget
 {
@@ -15,24 +13,13 @@ class ServerStatusWidget extends BaseWidget
 
     protected function getStats(): array
     {
-        $live = $this->liveSnapshot();
+        $live = app(CustomerDataService::class)->serverStatus();
 
-        if ($live !== null) {
+        if ($live !== null && ! empty($live['status'])) {
             return $this->buildLiveStats($live);
         }
 
         return $this->buildDemoStats();
-    }
-
-    protected function liveSnapshot(): ?array
-    {
-        /** @var User|null $user */
-        $user = Auth::user();
-        if (! $user instanceof User) {
-            return null;
-        }
-
-        return app(HostingDashboardService::class)->forUser($user);
     }
 
     protected function buildLiveStats(array $live): array

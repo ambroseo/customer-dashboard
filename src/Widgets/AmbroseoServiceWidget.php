@@ -2,8 +2,8 @@
 
 namespace Ambroseo\CustomerDashboard\Widgets;
 
+use Ambroseo\CustomerDashboard\Services\CustomerDataService;
 use Filament\Widgets\Widget;
-use Modules\Billing\Models\Invoice;
 
 class AmbroseoServiceWidget extends Widget
 {
@@ -16,25 +16,15 @@ class AmbroseoServiceWidget extends Widget
     protected function getViewData(): array
     {
         $support = config('ambroseo-dashboard.support', []);
-        $clientId = auth()->user()?->client?->id;
-
-        $openInvoices = 0;
-        $openAmount = 0.0;
-
-        if ($clientId) {
-            $query = Invoice::where('client_id', $clientId)
-                ->whereIn('status', ['sent', 'overdue']);
-            $openInvoices = (clone $query)->count();
-            $openAmount = (float) (clone $query)->sum('total');
-        }
+        $invoices = app(CustomerDataService::class)->invoices();
 
         return [
-            'supportEmail' => $support['email'] ?? null,
-            'supportPhone' => $support['phone'] ?? null,
-            'helpUrl' => $support['help_url'] ?? '/hilfe',
+            'supportEmail'  => $support['email'] ?? null,
+            'supportPhone'  => $support['phone'] ?? null,
+            'helpUrl'       => $support['help_url'] ?? '/hilfe',
             'responseHours' => (int) ($support['response_time_hours'] ?? 24),
-            'openInvoices' => $openInvoices,
-            'openAmount' => $openAmount,
+            'openInvoices'  => (int) ($invoices['open_count'] ?? 0),
+            'openAmount'    => (float) ($invoices['open_amount'] ?? 0.0),
         ];
     }
 }

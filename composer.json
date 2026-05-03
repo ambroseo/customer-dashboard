@@ -1,12 +1,15 @@
 {
     "name": "ambroseo/customer-dashboard",
-    "description": "Standard-Kundendashboard für AMBROSEO-Filament-Panels mit Welcome, Server-Status, Activity und Service-Karte",
+    "description": "Customer-Admin-Dashboard fuer AMBROSEO-Kundenwebseiten. Liefert Server-Status, Aktivitaets-Stats, Direkt-Chat zu AMBROSEO + Hilfe-Center als Filament-Plugin. Pulled Branding + Daten zentral aus AMBROSEO-API.",
+    "version": "1.0.0",
     "type": "library",
     "license": "proprietary",
+    "keywords": ["ambroseo", "filament", "customer-dashboard", "hosting"],
     "require": {
         "php": "^8.2",
         "filament/filament": "^4.0",
-        "filament/widgets": "^4.0"
+        "filament/widgets": "^4.0",
+        "guzzlehttp/guzzle": "^7.0"
     },
     "autoload": {
         "psr-4": {
